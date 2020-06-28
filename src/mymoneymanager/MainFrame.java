@@ -431,7 +431,7 @@ public class MainFrame extends javax.swing.JFrame {
         String category = categoryField.getText();
         System.out.println(category);
         if (category.isEmpty()) {
-            
+            //nothing
         } else {
             
             listModel.addElement(category);
@@ -468,6 +468,8 @@ public class MainFrame extends javax.swing.JFrame {
             setBalanceLabel(balance);
             saveToFile();
             
+        }else{
+             JOptionPane.showMessageDialog(null, "Select category !", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_addBtnActionPerformed
 
@@ -494,7 +496,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-
+        
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
@@ -509,7 +511,7 @@ public class MainFrame extends javax.swing.JFrame {
             double amount = Double.parseDouble(amountField.getText());
             
             if (amount == moneyData.getAmount()) {
-                System.out.println("ha");
+                 JOptionPane.showMessageDialog(null, "Enter different amount", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 
                 moneyData.setCategory(category);
