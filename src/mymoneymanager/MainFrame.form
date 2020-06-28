@@ -284,6 +284,7 @@
                 <Property name="dch_calSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[350, 300]"/>
                 </Property>
+                <Property name="dch_combo_dateFormat" type="int" value="3"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox1">

@@ -195,6 +195,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel2.setToolTipText("");
 
         dateChooserCombo1.setCalendarPreferredSize(new java.awt.Dimension(350, 300));
+        dateChooserCombo1.setFormat(3);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Income", "Expense" }));
 
