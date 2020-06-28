@@ -162,6 +162,7 @@ public class MainFrame extends javax.swing.JFrame {
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("My Money Manager");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -194,7 +195,6 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel2.setToolTipText("");
 
         dateChooserCombo1.setCalendarPreferredSize(new java.awt.Dimension(350, 300));
-        dateChooserCombo1.setFormat(1);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Income", "Expense" }));
 
