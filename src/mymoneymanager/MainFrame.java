@@ -5,7 +5,6 @@
  */
 package mymoneymanager;
 
-import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -13,14 +12,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
-import javax.swing.plaf.TableUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -35,60 +32,73 @@ public class MainFrame extends javax.swing.JFrame {
      */
     private DefaultListModel listModel;
     private List<MoneyData> dataList;
-    
+
     public MainFrame() {
         initComponents();
+        
         listModel = new DefaultListModel();
         dataList = new LinkedList<>();
         
+        //add category to jlist
         listModel.addElement("Entertaiment");
         listModel.addElement("Food");
         listModel.addElement("Salary");
-        
+
         jList1.setModel(listModel);
-        
+
         populateList();
         showData();
     }
     
+    /**
+     * show the balance 
+     * @param amount 
+     */
     public void setBalanceLabel(double amount) {
         balanceLabel.setText("");
         balanceLabel.setText("RM" + amount);
     }
-    
+    /**
+     * save objects to file
+     */
     public void saveToFile() {
-        
+
         try {
             FileOutputStream fo = new FileOutputStream(new File("myDatabase.txt"));
             ObjectOutputStream oo = new ObjectOutputStream(fo);
-            
+
             MoneyData[] md = new MoneyData[dataList.size()];
             md = dataList.toArray(md);
-            
+
             oo.writeObject(md);
             oo.close();
-            
+
         } catch (IOException e) {
         }
-        
+
     }
-    
+    /**
+     * retrieve objects from your file
+     * and populate it to list
+     */
     public void populateList() {
         try {
             FileInputStream fi = new FileInputStream(new File("myDatabase.txt"));
             ObjectInputStream oi = new ObjectInputStream(fi);
-            
+
             MoneyData[] md = (MoneyData[]) oi.readObject();
             dataList.addAll(Arrays.asList(md));
         } catch (Exception e) {
         }
-        
+
     }
-    
+    /**
+     * show data to table 
+     */
     private void showData() {
         DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
         ListIterator listIterator = dataList.listIterator();
-        
+        // static field is not stored in file so we need to recalculate the balance.
         double balance = 0;
         while (listIterator.hasNext()) {
             MoneyData md = (MoneyData) listIterator.next();
@@ -98,7 +108,7 @@ public class MainFrame extends javax.swing.JFrame {
             String date = md.getDate();
             String data[] = {type, category, String.valueOf(amount), date};
             tableModel.addRow(data);
-            
+
             if (type.equalsIgnoreCase("Income")) {
                 balance += amount;
                 System.out.println(balance);
@@ -106,10 +116,10 @@ public class MainFrame extends javax.swing.JFrame {
                 balance -= amount;
                 System.out.println(balance);
             }
-            
+
             md.setBALANCE(balance);
         }
-        
+
         setBalanceLabel(balance);
     }
 
@@ -425,30 +435,44 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * add category
+     * @param evt 
+     */
     private void addCategoryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCategoryBtnActionPerformed
-        
+
         String category = categoryField.getText();
         System.out.println(category);
         if (category.isEmpty()) {
             //nothing
         } else {
-            
+
             listModel.addElement(category);
         }
     }//GEN-LAST:event_addCategoryBtnActionPerformed
-
+    /**
+     * set text to nothing when it gaines focus
+     * @param evt 
+     */
     private void categoryFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_categoryFieldFocusGained
         categoryField.setText("");
     }//GEN-LAST:event_categoryFieldFocusGained
-
+    /**
+     * delete category from jlist
+     * @param evt 
+     */
     private void deleteCategoryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCategoryBtnActionPerformed
         int index = jList1.getSelectedIndex();
         if (index != -1) {
             listModel.removeElementAt(index);
         }
     }//GEN-LAST:event_deleteCategoryBtnActionPerformed
-
+    
+    /**
+     * add information to table and store it to the list.
+     * calculated balance will be displayed
+     * @param evt 
+     */
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         int index = jList1.getSelectedIndex();
         DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
@@ -458,34 +482,37 @@ public class MainFrame extends javax.swing.JFrame {
             String type = jComboBox1.getSelectedItem().toString();
             double amount = Double.parseDouble(amountField.getText());
             String[] data = {type, category, amountField.getText(), date};
-            
+
             MoneyData moneyData = new MoneyData(type, category, amount, date);
             dataList.add(moneyData);
-            
+
             tableModel.addRow(data);
             double balance = moneyData.getBALANCE();
-            
+
             setBalanceLabel(balance);
             saveToFile();
-            
-        }else{
-             JOptionPane.showMessageDialog(null, "Select category !", "Error", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Select category !", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
 
     }//GEN-LAST:event_jList1MouseClicked
-
+    /**
+     * delete information from table and list.
+     * @param evt 
+     */
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         int index = jTable1.getSelectedRow();
         DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
         if (jTable1.getSelectedRowCount() == 1) {
             if (index != -1) {
                 MoneyData moneyData = dataList.get(index);
-                double balance = moneyData.substractBalance();
+                double balance = moneyData.recalculateBalance();
                 moneyData = null;
-                
+
                 setBalanceLabel(balance);
                 dataList.remove(index);
                 tableModel.removeRow(index);
@@ -496,9 +523,12 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        
-    }//GEN-LAST:event_jTable1MouseClicked
 
+    }//GEN-LAST:event_jTable1MouseClicked
+    /**
+     * update information on the table and the object itself
+     * @param evt 
+     */
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         int index = jTable1.getSelectedRow();
         int indexJlist = jList1.getSelectedIndex();
@@ -509,37 +539,43 @@ public class MainFrame extends javax.swing.JFrame {
             String date = dateChooserCombo1.getText();
             String type = jComboBox1.getSelectedItem().toString();
             double amount = Double.parseDouble(amountField.getText());
-            
+
             if (amount == moneyData.getAmount()) {
-                 JOptionPane.showMessageDialog(null, "Enter different amount", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Enter different amount", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                
+
                 moneyData.setCategory(category);
                 moneyData.setDate(date);
                 moneyData.setType(type);
                 moneyData.setAmount(amount);
-                
+
                 tableModel.setValueAt(type, jTable1.getSelectedRow(), 0);
                 tableModel.setValueAt(category, jTable1.getSelectedRow(), 1);
                 tableModel.setValueAt(amount, jTable1.getSelectedRow(), 2);
                 tableModel.setValueAt(date, jTable1.getSelectedRow(), 3);
-                
+
                 setBalanceLabel(moneyData.getBALANCE());
                 saveToFile();
             }
-            
+
         }
     }//GEN-LAST:event_updateBtnActionPerformed
-
+    /**
+     * the row will show the keyword we type
+     * @param evt 
+     */
     private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
         DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
-        
+
         String search = searchField.getText();
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<>(table);
         jTable1.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter("(?i)" + search));
     }//GEN-LAST:event_searchFieldKeyReleased
-
+    /**
+     * show our group members in joption pane
+     * @param evt 
+     */
     private void aboutLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aboutLabelMouseClicked
         JOptionPane.showMessageDialog(null, "GROUP MEMBERS"
                 + "\nRachmat Ilham Muslim Maulana (268954)"

@@ -25,14 +25,16 @@ public class MoneyData implements Serializable {
         this.type = type;
         this.amount = amount;
 
+        //calculate the balance when it's first created
         if (this.type.equalsIgnoreCase("expense")) {
             this.BALANCE = BALANCE - this.amount;
         } else {
             this.BALANCE = BALANCE + this.amount;
         }
     }
+    //recalculate balance to the previous amount
 
-    public double substractBalance() {
+    public double recalculateBalance() {
         if (this.type.equalsIgnoreCase("Expense")) {
             return this.BALANCE = BALANCE + amount;
         } else {
@@ -79,15 +81,13 @@ public class MoneyData implements Serializable {
 
     public void setAmount(double amount) {
 
+        double previousBalance = recalculateBalance();
+        //calculate the previous balance with updated amount
         if (this.type.equalsIgnoreCase("expense")) {
-            double previousBalance = BALANCE + this.amount;
-            System.out.println(previousBalance + "expense");
             this.amount = amount;
             BALANCE = previousBalance - amount;
 
         } else {
-            double previousBalance = BALANCE - this.amount;
-            System.out.println(previousBalance + "income");
             this.amount = amount;
             BALANCE = previousBalance + amount;
         }
