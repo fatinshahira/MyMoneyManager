@@ -239,9 +239,9 @@
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="dateChooserCombo1" max="32767" attributes="0"/>
                                   <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="amountField" alignment="1" min="-2" pref="155" max="-2" attributes="0"/>
+                                  <Component id="amountField" alignment="0" pref="155" max="32767" attributes="0"/>
+                                  <Component id="dateTextField" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -253,9 +253,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="dateChooserCombo1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="dateTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -279,14 +279,6 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="datechooser.beans.DateChooserCombo" name="dateChooserCombo1">
-              <Properties>
-                <Property name="dch_calSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[350, 300]"/>
-                </Property>
-                <Property name="dch_combo_dateFormat" type="int" value="3"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox1">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -367,6 +359,14 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Amount :"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="dateTextField">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="MM/DD/YYYY"/>
+              </Properties>
+              <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="dateTextFieldFocusGained"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

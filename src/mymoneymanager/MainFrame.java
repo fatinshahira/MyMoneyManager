@@ -35,10 +35,10 @@ public class MainFrame extends javax.swing.JFrame {
 
     public MainFrame() {
         initComponents();
-        
+
         listModel = new DefaultListModel();
         dataList = new LinkedList<>();
-        
+
         //add category to jlist
         listModel.addElement("Entertaiment");
         listModel.addElement("Food");
@@ -49,15 +49,17 @@ public class MainFrame extends javax.swing.JFrame {
         populateList();
         showData();
     }
-    
+
     /**
-     * show the balance 
-     * @param amount 
+     * show the balance
+     *
+     * @param amount
      */
     public void setBalanceLabel(double amount) {
         balanceLabel.setText("");
         balanceLabel.setText("RM" + amount);
     }
+
     /**
      * save objects to file
      */
@@ -77,9 +79,9 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
     }
+
     /**
-     * retrieve objects from your file
-     * and populate it to list
+     * retrieve objects from your file and populate it to list
      */
     public void populateList() {
         try {
@@ -92,8 +94,9 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
     }
+
     /**
-     * show data to table 
+     * show data to table
      */
     private void showData() {
         DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
@@ -138,7 +141,6 @@ public class MainFrame extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         balanceLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        dateChooserCombo1 = new datechooser.beans.DateChooserCombo();
         jComboBox1 = new javax.swing.JComboBox<>();
         amountField = new javax.swing.JTextField();
         addBtn = new javax.swing.JButton();
@@ -147,6 +149,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        dateTextField = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         categoryField = new javax.swing.JTextField();
         addCategoryBtn = new javax.swing.JButton();
@@ -194,9 +197,6 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel2.setToolTipText("");
 
-        dateChooserCombo1.setCalendarPreferredSize(new java.awt.Dimension(350, 300));
-        dateChooserCombo1.setFormat(3);
-
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Income", "Expense" }));
 
         addBtn.setBackground(new java.awt.Color(102, 102, 102));
@@ -235,6 +235,13 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(204, 204, 204));
         jLabel7.setText("Amount :");
 
+        dateTextField.setText("MM/DD/YYYY");
+        dateTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                dateTextFieldFocusGained(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -256,18 +263,18 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(dateChooserCombo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(amountField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(amountField, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                            .addComponent(dateTextField))))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(8, 8, 8)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -438,7 +445,8 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     /**
      * add category
-     * @param evt 
+     *
+     * @param evt
      */
     private void addCategoryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCategoryBtnActionPerformed
 
@@ -453,14 +461,16 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_addCategoryBtnActionPerformed
     /**
      * set text to nothing when it gaines focus
-     * @param evt 
+     *
+     * @param evt
      */
     private void categoryFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_categoryFieldFocusGained
         categoryField.setText("");
     }//GEN-LAST:event_categoryFieldFocusGained
     /**
      * delete category from jlist
-     * @param evt 
+     *
+     * @param evt
      */
     private void deleteCategoryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCategoryBtnActionPerformed
         int index = jList1.getSelectedIndex();
@@ -468,18 +478,19 @@ public class MainFrame extends javax.swing.JFrame {
             listModel.removeElementAt(index);
         }
     }//GEN-LAST:event_deleteCategoryBtnActionPerformed
-    
+
     /**
-     * add information to table and store it to the list.
-     * calculated balance will be displayed
-     * @param evt 
+     * add information to table and store it to the list. calculated balance
+     * will be displayed
+     *
+     * @param evt
      */
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         int index = jList1.getSelectedIndex();
         DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
         if (index != -1) {
             String category = jList1.getSelectedValue();
-            String date = dateChooserCombo1.getText();
+            String date = dateTextField.getText();
             String type = jComboBox1.getSelectedItem().toString();
             double amount = Double.parseDouble(amountField.getText());
             String[] data = {type, category, amountField.getText(), date};
@@ -503,7 +514,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jList1MouseClicked
     /**
      * delete information from table and list.
-     * @param evt 
+     *
+     * @param evt
      */
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         int index = jTable1.getSelectedRow();
@@ -528,7 +540,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
     /**
      * update information on the table and the object itself
-     * @param evt 
+     *
+     * @param evt
      */
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         int index = jTable1.getSelectedRow();
@@ -537,7 +550,7 @@ public class MainFrame extends javax.swing.JFrame {
         if (index != -1 && indexJlist != -1) {
             MoneyData moneyData = dataList.get(index);
             String category = jList1.getSelectedValue();
-            String date = dateChooserCombo1.getText();
+            String date = dateTextField.getText();
             String type = jComboBox1.getSelectedItem().toString();
             double amount = Double.parseDouble(amountField.getText());
 
@@ -563,7 +576,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_updateBtnActionPerformed
     /**
      * the row will show the keyword we type
-     * @param evt 
+     *
+     * @param evt
      */
     private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
         DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
@@ -575,7 +589,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_searchFieldKeyReleased
     /**
      * show our group members in joption pane
-     * @param evt 
+     *
+     * @param evt
      */
     private void aboutLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aboutLabelMouseClicked
         JOptionPane.showMessageDialog(null, "GROUP MEMBERS"
@@ -584,6 +599,10 @@ public class MainFrame extends javax.swing.JFrame {
                 + "\nNurul Fatin Shahira binti Rahim (271616)"
                 + "\nNurul Nadiah binti Yusuf (271278)", "About", JOptionPane.QUESTION_MESSAGE);
     }//GEN-LAST:event_aboutLabelMouseClicked
+
+    private void dateTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateTextFieldFocusGained
+        dateTextField.setText("");
+    }//GEN-LAST:event_dateTextFieldFocusGained
 
     /**
      * @param args the command line arguments
@@ -630,7 +649,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField amountField;
     private javax.swing.JLabel balanceLabel;
     private javax.swing.JTextField categoryField;
-    private datechooser.beans.DateChooserCombo dateChooserCombo1;
+    private javax.swing.JTextField dateTextField;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JButton deleteCategoryBtn;
     private javax.swing.JComboBox<String> jComboBox1;
